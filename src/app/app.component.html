@@ -1,0 +1,21 @@
+<div class="container">
+    <router-outlet></router-outlet>
+    <mat-card class="container__card container__card-instruction">
+        <mat-icon class="container__icon-instruction">help</mat-icon> 
+        <label class="container__title-instruction">Instrucciones</label>
+        <p>Debe ingresar en <a href="https://axieacademytracker.web.app/login">Axieacademy tracker</a>
+        agregar a sus becados, entrar en el apartado perfiles y generar secrets file.</p>
+    </mat-card>
+    
+    <mat-card class="container__card container__content">
+        <router-outlet></router-outlet>
+    </mat-card>
+    
+    <div class="container__btn">
+        <button mat-raised-button [disabled]="true" color="warn">Atras</button>
+        <button mat-raised-button 
+            [disabled]="next"
+            (click)="nextBtn()" 
+            color="warn">{{ textNextBtn }}</button>
+    </div>
+</div>

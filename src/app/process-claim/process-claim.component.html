@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="container__head">
+        <p>Numero Becados: {{ sessions.secrets.length }}</p>
+        <p>Claim Completos: {{ claimSuccess }}</p>
+        <p>Errores: {{ errorSuccess }}</p>
+    </div>
+    
+    <section class="example-section">
+        <mat-progress-bar
+            class="example-margin"
+            color="primary"
+            mode="indeterminate">
+        </mat-progress-bar>
+    </section>
+    
+    <div class="container__btn-zone">
+        <button class="container__btn" mat-raised-button color="primary">Reintentar</button>
+        <button class="container__btn" (click)="endClain()" mat-raised-button color="warn">Finalizar</button>
+    </div>
+</div>
