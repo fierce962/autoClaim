@@ -3,11 +3,12 @@ export interface Secrets{
     ronin: string;
     roninPersonal: string;
     secret: string;
+    ganancia: number;
     totalClaim?: string;
-    axies?: string[],
-    slp?: string,
-    axs?: string, 
-    weth?: string
+    axies?: string[];
+    slp?: string;
+    axs?: string; 
+    weth?: string;
 }
 
 export interface AxiesData {

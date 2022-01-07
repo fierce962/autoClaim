@@ -22,13 +22,17 @@ export class AppComponent implements OnInit {
 
   nextBtn(): void{
     this.next = true;
+    this.sendAction();
     if(this.textNextBtn === 'Siguiente'){
       this.router.navigate(['/profiles']);
       this.textNextBtn = 'Claim Automatico';
     }else{
       this.textNextBtn = 'Transferir Slp';
-      this.sessions.setNextAction(this.textNextBtn);
     };
+  }
+
+  sendAction(): void{
+    this.sessions.setNextAction(this.textNextBtn);
   }
 
 }

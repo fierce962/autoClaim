@@ -17,12 +17,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSortModule } from '@angular/material/sort';
 import { ProcessClaimComponent } from './process-claim/process-claim.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadingComponent } from './components/loading/loading.component'; 
 @NgModule({
   declarations: [
     AppComponent,
     LoadFileSecretComponent,
     ProfilesComponent,
     ProcessClaimComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatTableModule,
     MatBadgeModule,
     MatSortModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

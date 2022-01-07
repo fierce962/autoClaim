@@ -1,4 +1,8 @@
-<div class="container-table" *ngIf="!processBarView">
+<div class="loading" *ngIf="loading">
+    <app-loading></app-loading>
+</div>
+
+<div class="container-table" *ngIf="!processClaim">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">  
         <ng-container matColumnDef="name" sticky>
             <th mat-header-cell *matHeaderCellDef> name </th>
@@ -48,6 +52,6 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>
-<mat-paginator class="paginator" *ngIf="!processBarView" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+<mat-paginator class="paginator" *ngIf="!processClaim" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 
-<app-process-claim *ngIf="processBarView" (finalizar)="endProcess($event)"></app-process-claim>
+<app-process-claim *ngIf="processClaim" [claimOrTransfer]="action" (finalizar)="endClaimOrTransfer($event)"></app-process-claim>

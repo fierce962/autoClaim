@@ -22,14 +22,16 @@ export class ProfilesComponent implements OnInit {
   dataSource: MatTableDataSource<Secrets> = new MatTableDataSource();
   roninWalet = new RoninWeb3();
 
-  processBarView: boolean = false;
+  processClaim: boolean = false;
+  action: string = '';
+  loading: boolean = true;
 
   constructor(private sessions: SessionsService,
     private getAxies: GetAxiesService) { }
 
   ngOnInit(): void {
     this.getAxiesData(this.sessions.secrets);
-    this.processBar();
+    this.processAction();
   }
 
   async getAxiesData(secrets: Secrets[]): Promise<void>{
@@ -58,21 +60,24 @@ export class ProfilesComponent implements OnInit {
     });
   };
 
-  loadBalancePerfil(): void{
-    this.sessions.secrets.forEach((secret)=>{
-      this.getCrytoRonin(secret);
-    });
+  async loadBalancePerfil(): Promise<void>{
+    await Promise.all(
+      this.sessions.secrets.map((secret)=>{
+        return this.getCrytoRonin(secret);
+      })
+    );
+    this.loading = false;
   };
 
-  getCrytoRonin(secret: Secrets): void{
-    this.getRoninCryto(secret.ronin, this.roninWalet.SLP_CONTRACT).then(Balance =>{
-      secret.slp = Balance;
-    });
+  async getCrytoRonin(secret: Secrets){
     this.getRoninCryto(secret.ronin, this.roninWalet.AXS_CONTRACT).then(Balance =>{
       secret.axs = this.parseWeth(Balance);
     });
     this.getRoninCryto(secret.ronin, this.roninWalet.WETH_CONTRACT).then(Balance =>{
       secret.weth = this.parseWeth(Balance);
+    });
+    return this.getRoninCryto(secret.ronin, this.roninWalet.SLP_CONTRACT).then(Balance =>{
+      return secret.slp = Balance;
     });
   };
 
@@ -90,15 +95,18 @@ export class ProfilesComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   };
 
-  processBar(): void{
+  processAction(): void{
     this.sessions.getNextAction().subscribe(action=>{
-      if(action === 'Transferir Slp'){
-        this.processBarView = true;
-      }
+      this.action = action;
+      this.processClaim = true;
     });
   };
 
-  endProcess(eventEmit: boolean): void{
-    this.processBarView = eventEmit;
+  async endClaimOrTransfer(eventEmit: boolean): Promise<void>{
+    this.loading = true;
+    this.processClaim = eventEmit;
+    this.sessions.setNext(true);
+    await this.loadBalancePerfil();
+    this.loadTable();
   }
 }

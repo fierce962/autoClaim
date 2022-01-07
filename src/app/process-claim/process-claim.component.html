@@ -5,16 +5,20 @@
         <p>Errores: {{ errorSuccess }}</p>
     </div>
     
-    <section class="example-section">
-        <mat-progress-bar
+    <section class="container__section">
+        <mat-icon  class="container__section-icon" 
+            *ngIf="iconView"
+            [color]="color">{{ errorSuccess !== 0 ? 'close' : 'check' }}</mat-icon>
+        <mat-progress-spinner
             class="example-margin"
-            color="primary"
-            mode="indeterminate">
-        </mat-progress-bar>
+            [color]="color"
+            [mode]="mode"
+            [value]="value">
+        </mat-progress-spinner>
     </section>
     
     <div class="container__btn-zone">
-        <button class="container__btn" mat-raised-button color="primary">Reintentar</button>
+        <button class="container__btn" (click)="retryClaim()" mat-raised-button color="primary">Reintentar</button>
         <button class="container__btn" (click)="endClain()" mat-raised-button color="warn">Finalizar</button>
     </div>
 </div>
