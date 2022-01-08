@@ -9,6 +9,7 @@ export interface Secrets{
     slp?: string;
     axs?: string; 
     weth?: string;
+    transferResult?: string;
 }
 
 export interface AxiesData {

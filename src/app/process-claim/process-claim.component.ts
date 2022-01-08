@@ -22,13 +22,15 @@ export class ProcessClaimComponent implements OnInit {
   value: number = 100;
   iconView: boolean = false;
 
+  roninAcademia: string = '';
+
   constructor(public sessions: SessionsService, private autoClaim: AutoClaimService) { }
 
   ngOnInit(): void {
     if(this.claimOrTransfer === 'Claim Automatico'){
       this.claimSlp(this.sessions.secrets);
     }else{
-      this.payments();
+      this.payments(this.sessions.secrets);
     }
   }
 
@@ -74,14 +76,35 @@ export class ProcessClaimComponent implements OnInit {
     this.iconView = false;
   }
 
-  async payments(): Promise<void>{
-    // await Promise.all(transfer.map((scholar)=>{
-    //   return this.autoClaim.transferSlp(scholar.origen, scholar.roninAcademia, scholar.secret, scholar.academia)
-    // }));
-    // console.log("completado academia");
-    // await Promise.all(transfer.map((scholar)=>{
-    //   return this.autoClaim.transferSlp(scholar.origen, scholar.roninPersonal, scholar.secret, scholar.becado)
-    // }));
-    // console.log("completado becados");
+  async payments(secrets: Secrets[]): Promise<void>{
+    await Promise.all(secrets.map((secret)=>{
+      let amount: number = this.calcAmount(secret);
+      if(amount != 0){
+        secret.slp = (parseInt(secret.slp!) - amount).toString();
+        return this.autoClaim.transferSlp(secret.ronin, secret.roninPersonal, secret.secret, amount)
+        .then(resultTransfer => {
+          secret.transferResult = resultTransfer;
+        }).catch(resultError=>{
+          secret.transferResult = resultError;
+        });
+      }else{
+        return Promise.resolve();
+      }
+    }));
+    console.log("completado pagos becados");
+    await Promise.all(secrets.map((secret)=>{
+      let amount: number = parseInt(secret.slp!);
+      if(amount != 0 && secret.transferResult! === 'transfer successful'){
+        return this.autoClaim.transferSlp(secret.ronin, this.roninAcademia, secret.secret, amount);
+      }else{
+        return Promise.resolve();
+      }
+    }));
+    console.log("completado pagos Academia");
+  }
+
+  calcAmount(secret: Secrets): number{
+    let amount: number = (parseInt(secret.slp!) * secret.ganancia) / 100;
+    return parseInt(amount.toFixed(0));
   }
 }
