@@ -71,13 +71,15 @@ export class AutoClaimService {
     to: string,
     privatekey: string, 
     amount: number): Promise<string>{
-      try{
-        const transaction = await this.roninWalet.getTransaccionTransfer(to, amount);
-        await this.signAndSendTransaction(from, this.roninWalet.SLP_CONTRACT, privatekey, 100000, transaction);
-        return 'transfer successful';
-      }catch(error){
-        return 'transfer error';
-      }
+      return new Promise(async (resolve, rejects)=>{
+        try{
+          const transaction = await this.roninWalet.getTransaccionTransfer(to, amount);
+          await this.signAndSendTransaction(from, this.roninWalet.SLP_CONTRACT, privatekey, 100000, transaction);
+          resolve('transfer successful');
+        }catch(error){
+          rejects('transfer error');
+        }
+      });
   }
 
   private async claim(

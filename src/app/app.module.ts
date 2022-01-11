@@ -19,6 +19,11 @@ import { ProcessClaimComponent } from './process-claim/process-claim.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingComponent } from './components/loading/loading.component'; 
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalJsonErrorComponent } from './components/modal-json-error/modal-json-error.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +31,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     ProfilesComponent,
     ProcessClaimComponent,
     LoadingComponent,
+    ModalJsonErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +46,12 @@ import { LoadingComponent } from './components/loading/loading.component';
     MatBadgeModule,
     MatSortModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

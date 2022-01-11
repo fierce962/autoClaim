@@ -10,6 +10,7 @@ export interface Secrets{
     axs?: string; 
     weth?: string;
     transferResult?: string;
+    transaction: string;
 }
 
 export interface AxiesData {

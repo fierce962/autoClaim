@@ -1,14 +1,39 @@
+<div class="container-form" *ngIf="viewForm">
+    <h3>A este ronin se transferiran las ganancias de la academia</h3>
+    <form>
+        <mat-form-field class="container-form__input" appearance="outline">
+            <mat-label>Ronin de la Academia</mat-label>
+            <input type="text" matInput [formControl]="roninAcademy">
+            <mat-error *ngIf="roninAcademy.hasError('required')">
+                Debe introduccir un ronin
+            </mat-error>
+        </mat-form-field>
+    </form>
+    <div class="container-form__zone-btn">
+        <button class="container__btn" (click)="startPayments()" 
+            [disabled]="!roninAcademy.valid" mat-raised-button color="warn">Finalizar</button>
+    </div>
+</div>
+
 <div class="container">
-    <div class="container__head">
+    <div class="container__head" *ngIf="claimOrTransfer === 'Claim Automatico'">
         <p>Numero Becados: {{ sessions.secrets.length }}</p>
-        <p>Claim Completos: {{ claimSuccess }}</p>
-        <p>Errores: {{ errorSuccess }}</p>
+        <p>Claim Completos: {{ success }}</p>
+        <p>Errores: {{ errors }}</p>
+    </div>
+
+    <div class="container__head" *ngIf="claimOrTransfer !== 'Claim Automatico'">
+        <p>Cantidad de transferencias: {{ secretsAvailable.length }}</p>
+        <p>Transferencias a Becados Completadas: {{ success }}</p>
+        <p>Transferencias a la academia Completadas: {{ transferSuccess }}</p>
+        <p>Errores al transferir a becados: {{ errors }}</p>
+        <p>Errores al transferir a la academia: {{ errorTransactionAcademy.length }}</p>
     </div>
     
     <section class="container__section">
         <mat-icon  class="container__section-icon" 
             *ngIf="iconView"
-            [color]="color">{{ errorSuccess !== 0 ? 'close' : 'check' }}</mat-icon>
+            [color]="color">{{ errors !== 0 ? 'close' : 'check' }}</mat-icon>
         <mat-progress-spinner
             class="example-margin"
             [color]="color"
@@ -18,7 +43,7 @@
     </section>
     
     <div class="container__btn-zone">
-        <button class="container__btn" (click)="retryClaim()" mat-raised-button color="primary">Reintentar</button>
+        <button class="container__btn" (click)="retryTransaction()" mat-raised-button color="primary">Reintentar</button>
         <button class="container__btn" (click)="endClain()" mat-raised-button color="warn">Finalizar</button>
     </div>
 </div>

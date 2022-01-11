@@ -15,7 +15,7 @@ import { RoninWeb3 } from '../models/RoninWeb3';
 })
 
 export class ProfilesComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'axies', 'slp', 'axs', 'weth'];
+  displayedColumns: string[] = ['name', 'axies', 'slp', 'axs', 'weth', 'claim'];
   imgView: number[] = [0, 1, 2];
   @ViewChild(MatSort, { static: false }) sort?: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -108,5 +108,5 @@ export class ProfilesComponent implements OnInit {
     this.sessions.setNext(true);
     await this.loadBalancePerfil();
     this.loadTable();
-  }
+  };
 }

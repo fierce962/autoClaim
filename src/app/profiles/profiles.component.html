@@ -44,7 +44,17 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Weth </th>
             <td mat-cell *matCellDef="let element" class="container-table__colum-cryto">
                 <i class="cf cf-eth container-table__img-weth"></i>
-                <label> {{ element.weth }}  </label>
+                <label> {{ element.weth }} </label>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="claim">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaccion </th>
+            <td mat-cell *matCellDef="let element" class="container-table__colum-cryto">
+                <button mat-mini-fab color="primary" 
+                    [class.container-table__transaction]="element.transaction === 'no'">
+                    <mat-icon>{{ element.transaction === 'no' ? 'close' : 'done' }}</mat-icon>
+                </button>
             </td>
         </ng-container>
         

@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Errores</h2>
+<mat-dialog-content class="content">
+    <div *ngFor="let error of secretsError">
+        <p>Becado: {{ error.name }}</p>
+        <p class="content__p">No existe el ronin</p>
+        <p class="content__p">No existe el ronin Personal</p>
+        <p class="content__p">Falta agregar el secret</p>
+        <p class="content__p">La ganancia no puede ser 0</p>
+        <mat-divider></mat-divider>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

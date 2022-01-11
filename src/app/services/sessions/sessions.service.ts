@@ -11,6 +11,8 @@ export class SessionsService {
 
   modal: string = 'claim';
 
+  errorSecrets: Secrets[] = [];
+
   private next: Subject<boolean> = new Subject();
   private nextAction: Subject<string> = new Subject();
 

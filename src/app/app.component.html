@@ -6,13 +6,17 @@
         <p>Debe ingresar en <a href="https://axieacademytracker.web.app/login">Axieacademy tracker</a>
         agregar a sus becados, entrar en el apartado perfiles y generar secrets file.</p>
     </mat-card>
+
+    <mat-card class="container__card container__error" *ngIf="sessions.errorSecrets.length">
+        Numero de becados con valores incorrectos: {{ sessions.errorSecrets.length }}
+        <button mat-button color="primary" (click)="openDialog()">Ver los errores</button>
+    </mat-card>
     
     <mat-card class="container__card container__content">
         <router-outlet></router-outlet>
     </mat-card>
     
     <div class="container__btn">
-        <button mat-raised-button [disabled]="true" color="warn">Atras</button>
         <button mat-raised-button 
             [disabled]="next"
             (click)="nextBtn()" 
