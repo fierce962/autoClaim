@@ -2,8 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
 var path = require("path");
-var fs = require("fs");
-var url = require("url");
 var win = null;
 var args = process.argv.slice(1), serve = args.some(function (val) { return val === '--serve'; });
 function createWindow() {
@@ -31,16 +29,18 @@ function createWindow() {
     }
     else {
         // Path when running electron executable
-        var pathIndex = './index.html';
-        if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
-            // Path when running electron in local folder
-            pathIndex = '../dist/index.html';
-        }
-        win.loadURL(url.format({
-            pathname: path.join(__dirname, pathIndex),
-            protocol: 'file:',
-            slashes: true
-        }));
+        var pathIndex = 'index.html';
+        win.webContents.openDevTools();
+        win.loadFile(path.resolve('./resources/app/dist/auto-claim/index.html'));
+        // if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
+        //    // Path when running electron in local folder
+        //   pathIndex = '../dist/index.html';
+        // }
+        // win.loadURL(url.format({
+        //   pathname: path.join(__dirname, pathIndex),
+        //   protocol: 'file:',
+        //   slashes: true
+        // }));
     }
     // Emitted when the window is closed.
     win.on('closed', function () {

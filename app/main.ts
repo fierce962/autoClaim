@@ -35,18 +35,19 @@ function createWindow(): BrowserWindow {
     win.loadURL('http://localhost:4200');
   } else {
     // Path when running electron executable
-    let pathIndex = './index.html';
+    let pathIndex = 'index.html';
+    win.webContents.openDevTools();
+    win.loadFile(path.resolve('./resources/app/dist/auto-claim/index.html'));
+    // if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
+    //    // Path when running electron in local folder
+    //   pathIndex = '../dist/index.html';
+    // }
 
-    if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
-       // Path when running electron in local folder
-      pathIndex = '../dist/index.html';
-    }
-
-    win.loadURL(url.format({
-      pathname: path.join(__dirname, pathIndex),
-      protocol: 'file:',
-      slashes: true
-    }));
+    // win.loadURL(url.format({
+    //   pathname: path.join(__dirname, pathIndex),
+    //   protocol: 'file:',
+    //   slashes: true
+    // }));
   }
 
   // Emitted when the window is closed.
