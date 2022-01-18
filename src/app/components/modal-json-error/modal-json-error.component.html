@@ -2,10 +2,10 @@
 <mat-dialog-content class="content">
     <div *ngFor="let error of secretsError">
         <p>Becado: {{ error.name }}</p>
-        <p class="content__p">No existe el ronin</p>
-        <p class="content__p">No existe el ronin Personal</p>
-        <p class="content__p">Falta agregar el secret</p>
-        <p class="content__p">La ganancia no puede ser 0</p>
+        <p class="content__p" *ngIf="error.ronin === ''">No existe el ronin</p>
+        <p class="content__p" *ngIf="error.roninPersonal === ''">No existe el ronin Personal</p>
+        <p class="content__p" *ngIf="error.secret === ''">Falta agregar el secret</p>
+        <p class="content__p" *ngIf="error.ganancia === 0">La ganancia no puede ser 0</p>
         <mat-divider></mat-divider>
     </div>
 </mat-dialog-content>

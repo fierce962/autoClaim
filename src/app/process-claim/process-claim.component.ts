@@ -103,7 +103,7 @@ export class ProcessClaimComponent implements OnInit {
 
   async filterPayments(secrets: Secrets[]): Promise<void>{
     this.secretsAvailable = secrets.filter(secrets => parseInt(secrets.slp!) != 0);
-    //await this.paymentsBecados(this.secretsAvailable);
+    await this.paymentsBecados(this.secretsAvailable);
     await this.paymentsAcademy(this.secretsAvailable);
     this.changeSpiner();
   }
@@ -128,7 +128,7 @@ export class ProcessClaimComponent implements OnInit {
   async paymentsAcademy(secrets: Secrets[]): Promise<void>{
     await Promise.all(secrets.map((secret)=>{
       let amount: number = parseInt(secret.slp!);
-      if(secret.transferResult! === 'transfer successful' || secret.ganancia === 0){
+      if(secret.transferResult! === 'transfer successful'){
         return this.autoClaim.transferSlp(secret.ronin, this.roninAcademy.value, secret.secret, amount)
         .then(result=>{
           this.transferSuccess += 1;

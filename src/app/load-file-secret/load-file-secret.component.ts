@@ -40,7 +40,7 @@ export class LoadFileSecretComponent implements OnInit {
 
   verifyData(secrets: Secrets[]): void{
     secrets.forEach(secret=>{
-      if(secret.ronin === '' || secret.roninPersonal === '' || secret.secret === ''){
+      if(secret.ronin === '' || secret.roninPersonal === '' || secret.secret === '' || secret.ganancia === 0){
         this.messageInput = 'el archivo tiene valores incorrectos';
         this.sessions.errorSecrets.push(secret);
       }else{
